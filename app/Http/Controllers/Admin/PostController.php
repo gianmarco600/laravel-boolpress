@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -16,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view(admin.posts.index, compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -49,7 +50,7 @@ class PostController extends Controller
         $bluePPost->fill($newPost);
         $bluePPost->save();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('creato' , 'Hai creato l\' elemento id #' . $bluePPost->id);
     }
 
     /**
@@ -88,7 +89,7 @@ class PostController extends Controller
        $editPost['slug'] = Str::slug($editPost['title'], '-');
        $post->update($editPost);
 
-       return redirect()->route('admin.posts.index');
+       return redirect()->route('admin.posts.index')->with('modifica','Hai modificato l\'elemento #' . $post->id);
     }
 
     /**
@@ -101,6 +102,6 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('cancella','Hai cancellato l\'elemento #' . $post->id);
     }
 }
