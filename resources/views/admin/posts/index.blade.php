@@ -38,13 +38,13 @@
           <th scope="row">{{$post->id}}</th>
           <td>{{$post->title}}</td>
           <td>
-            <a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-primary px-3">show</a>
-            <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">edit</a>
+            <a href="{{route('admin.posts.show', $post->slug)}}" class="btn btn-primary px-3">show</a>
+            <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-warning">edit</a>
             <form action="{{route('admin.posts.destroy', $post->id)}}" method="POST" class="d-inline-block">
               {{-- Per ogni form bisogna inserire il token altrimenti il cambiamento non viene accettato dal sistema --}}
               @csrf
               @method('DELETE')
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler cancellare l\'elemento?')">delete</button>
+              <button type="submit" class="btn btn-danger del" >delete</button>
             </form>
           </td>
         </tr>
